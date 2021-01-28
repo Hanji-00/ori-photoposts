@@ -1,0 +1,12 @@
+<div>
+  <div>
+    <%= image_tag(rails_blob_path(@content.image), style: "height: 768px") %>
+  </div>
+  <div class="media mt-2 border mb-4">
+    <img class="rounded-pill mt-2 mb-2 ml-2" src="<%= gravatar_url(@user, {size: 100}) %>" alt="">
+    <div class="media-body pl-3">
+      <p class="h6 border">UserName: <%= @user.name %> <span class="ml-5 border"><%= @content.created_at %></span></p>
+      <p class="h4 font-weight-light pt-3 border-bottom">タイトル : <%= @content.content %></p>
+    </div>
+  </div>
+</div>

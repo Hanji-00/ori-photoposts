@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show]
+  before_action :require_user_logged_in, only: [:index, :show, :followings, :followers, :images]
   
   def index
     @users = User.order(id: :desc).page(params[:page]).per(30)
@@ -7,6 +7,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @comments = @user.comments.page(params[:page]).per(10)
+    counts(@user)
   end
 
   def new
@@ -25,10 +27,45 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+      flash[:success] = "編集を完了しました"
+      redirect_to :user
+    else
+      flash.now[:danger] = "編集に失敗しました"
+      render :edit
+    end
+       
+  end
+    
+    
+  def followings
+    @user = User.find(params[:id])
+    @followings = @user.followings.page(params[:page]).per(32)
+    counts(@user)
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page]).per(32)
+    counts(@user)
+  end
+  
+  def images
+    @user = User.find(params[:id])
+    @comments = @user.comments.page(params[:page]).per(10)
+    counts(@user)
+  end
+  
   
   private
   
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :introduction)
   end
 end
