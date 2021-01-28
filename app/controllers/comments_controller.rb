@@ -49,7 +49,7 @@ class CommentsController < ApplicationController
   
   def correct_user
     @content = current_user.comments.find_by(id: params[:id])
-    unless @micropost
+    unless @content
       redirect_to root_url
     end
   end

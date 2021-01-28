@@ -12,14 +12,13 @@
       </div>
     </div>
     <div id="user-introduction" class="border pt-2 pr-3 pl-3">
-      <p class="h6 pt-1 mr-2">:PRメッセージ <span class="ml-4"><%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-primary" %></span></p>
+      <p class="h6 pt-1 mr-2">:PRメッセージ <span class="ml-4"><% if current_user == @user %><%= link_to "編集する", edit_user_path, class: "btn btn-sm btn-primary" %><% end %></span></p>
       <p class="border-top"><%= simple_format(@user.introduction) %></p>
     </div>
   </aside>
   <div class="col-lg-9">
     <ul class="nav nav-tabs nav-justified mb-3">
       <li class="nav-item"><a href="<%= images_user_path(@user) %>" class="nav-link <%= "active" if current_page?(images_user_path(@user)) %>">投稿一覧 <span class="badge badge-secondary"><%= @count_comments %></span></a></li>
-      <li class="nav-item"><a href="#" class="nav-link">お気に入り一覧</a></li>
       <li class="nav-item"><a href="<%= followings_user_path(@user) %>" class="nav-link <%= "active" if current_page?(followings_user_path(@user)) %>">フォロー <span class="badge badge-secondary"><%= @count_followings %></span></a></li>
       <li class="nav-item"><a href="<%= followers_user_path(@user) %>" class="nav-link <%= "active" if current_page?(followers_user_path(@user)) %>">フォロワー <span class="badge badge-secondary"><%= @count_followers %></span></a></li>
     </ul>
